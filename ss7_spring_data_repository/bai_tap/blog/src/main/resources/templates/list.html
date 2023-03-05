@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <style>
+        th, td{
+            border: black solid 1px;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+    <h1>List Blog</h1>
+    <form action="/blog" role="search">
+        <input name="search" type="search" placeholder="Search by Title">
+        <input type="submit" class="btn btn-check">
+    </form>
+    <a href="/blog/showCreate">Add new Blog</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Author</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="blog, iterStat:${list}">
+            <td th:text="${iterStat.count}"></td>
+            <td><a th:href="@{/blog/information/{id}(id=${blog.getId()})}" th:text="${blog.getTitle()}"></a></td>
+            <td th:text="${blog.getContent()}"></td>
+            <td th:text="${blog.getAuthor()}"></td>
+            <td><a th:href="@{/blog/showEdit/{id}(id=${blog.getId()})}">Edit</a></td>
+            <td><a th:href="@{/blog/delete/{id}(id=${blog.getId()})}">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

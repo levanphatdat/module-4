@@ -1,18 +1,24 @@
 package com.example.blog.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 @Entity
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "title", nullable = false)
     private String title;
+    @Column(name = "content", nullable = false)
     private String content;
+    @Column(name = "author", nullable = false)
     private String author;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "id")
+    @JsonBackReference
+    private Category category;
 
     public Blog() {
     }
@@ -22,6 +28,14 @@ public class Blog {
         this.title = title;
         this.content = content;
         this.author = author;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Integer getId() {

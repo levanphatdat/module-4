@@ -27,7 +27,6 @@
         <tr>
             <th>ID</th>
             <th>Title</th>
-            <th>Content</th>
             <th>Category</th>
             <th>Author</th>
             <th></th>
@@ -40,7 +39,7 @@
             <td><a th:href="@{/blog/information/{id}(id=${blog.getId()})}"
                    th:text="${blog.getTitle()}"></a></td>
             <td th:text="${blog.getCategory()?.name}"></td>
-            <td th:text="${blog.getAuthor()()}"></td>
+            <td th:text="${blog.getAuthor()}"></td>
             <td><a th:href="@{/blog/showEdit/{id}(id=${blog.getId()})}" class="btn btn-primary">Edit</a></td>
             <td><a th:href="@{/blog/delete/{id}(id=${blog.getId()})}" class="btn btn-primary">Delete</a></td>
         </tr>

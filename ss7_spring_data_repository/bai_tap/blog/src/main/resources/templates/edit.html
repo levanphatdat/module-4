@@ -14,7 +14,8 @@
 </head>
 <body class="container-fluid ">
 <h3><a href="/blog">Back to List</a></h3>
-<form action="/blog/edit" method="post" th:object="${editBlog}">
+<form action="/blog/edit" method="post" th:object="${editBlog}" >
+    <input type="hidden" th:field="${editBlog.id}">
     <div class="mt-2">
         <label>Name of the blog</label>
         <input type="text" th:field="*{title}">
@@ -26,7 +27,7 @@
     <div class="mt-2">
         <label>Category</label>
         <select th:field="*{category.id}">
-            <option th:each="category1: ${categoryList}" th:text="${category1.name}"
+            <option th:each="category1: ${category}" th:text="${category1.name}"
                     th:value="${category1.id}"></option>
         </select>
     </div>

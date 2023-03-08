@@ -25,15 +25,15 @@ public class SongController {
     }
 
     @GetMapping("/create")
-    public String showCreationForm(Model model) {
+    public String showCreateForm(Model model) {
         model.addAttribute("songDTO", new SongDTO());
         return "/create";
     }
 
-    @PostMapping("/create")
-    public String performCreate(@Valid @ModelAttribute SongDTO songDTO,
-                                BindingResult bindingResult,
-                                RedirectAttributes redirectAttributes) {
+    @PostMapping("/showCreate")
+    public String formCreate(@Valid @ModelAttribute SongDTO songDTO,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "/create";
         }
@@ -45,7 +45,7 @@ public class SongController {
         return "redirect:/song";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/showEdit")
     public String showEditForm(@RequestParam int id, Model model) {
         SongDTO songDTO = new SongDTO();
         BeanUtils.copyProperties(songService.findById(id), songDTO);
@@ -54,9 +54,9 @@ public class SongController {
     }
 
     @PostMapping("/edit")
-    public String erformEdit(@Valid @ModelAttribute SongDTO songDTO,
-                             BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes) {
+    public String formEdit(@Valid @ModelAttribute SongDTO songDTO,
+                           BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "/edit";
         }

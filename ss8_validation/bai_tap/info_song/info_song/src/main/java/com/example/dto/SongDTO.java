@@ -5,10 +5,11 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class SongDTO {
-    @NotBlank(message = "{songName.notBlank}")
-    @Size(max = 800, message = "songName.size")
-    @Pattern(regexp = "^[^@;,.=+\\-]+$", message = "{songName.pattern}")
-    private String songName;
+    private Integer id;
+    @NotBlank(message = "{name.notBlank}")
+    @Size(max = 800, message = "name.size")
+    @Pattern(regexp = "^[^@;,.=+\\-]+$", message = "{name.pattern}")
+    private String name;
     @NotBlank(message = "{singer.notBlank}")
     @Size(max = 300, message = "singer.size")
     @Pattern(regexp = "^[^@;,.=+\\-]+$", message = "{singer.pattern}")
@@ -18,15 +19,23 @@ public class SongDTO {
     @Pattern(regexp = "^[^@;.=+\\-]+$", message = "{category.pattern}")
     private String category;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public SongDTO() {
     }
 
-    public String getSongName() {
-        return songName;
+    public String getName() {
+        return name;
     }
 
-    public void setSongName(String songName) {
-        this.songName = songName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSinger() {

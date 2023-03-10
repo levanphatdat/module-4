@@ -46,7 +46,7 @@ public class ProductController {
         cookie.setMaxAge(1 * 24 * 60 * 60);
         cookie.setPath("/");
         response.addCookie(cookie);
-        return new ModelAndView("detail","product", productService.findById(id).get());
+        return new ModelAndView("detail", "product", productService.findById(id).get());
     }
 
     @GetMapping("/add/{id}")

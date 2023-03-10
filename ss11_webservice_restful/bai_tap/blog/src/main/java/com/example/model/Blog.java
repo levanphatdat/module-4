@@ -1,40 +1,29 @@
-package com.example.blog.model;
+package com.example.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 
 @Entity
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "content", nullable = false)
     private String content;
-    @Column(name = "author", nullable = false)
     private String author;
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "id")
-    @JsonBackReference
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JsonManagedReference
     private Category category;
 
     public Blog() {
     }
 
-    public Blog(String title, String content, String author, Category category) {
+    public Blog(Integer id, String title, String content, String author, Category category) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
-        this.category = category;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -68,5 +57,13 @@ public class Blog {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

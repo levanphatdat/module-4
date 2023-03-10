@@ -29,7 +29,7 @@ public class BookController {
         return "/list";
     }
 
-    @GetMapping("/order/{id}")
+    @GetMapping("/{id}/order")
     public String order(@PathVariable int id, Model model) throws Exception {
         Order order = new Order();
         int code = (int) (Math.random() * (99999 - 10000) + 10000);
@@ -57,7 +57,7 @@ public class BookController {
         return "/orderList";
     }
 
-    @GetMapping("/payBook/{id}")
+    @GetMapping("/{id}/payBook")
     public String payBookConfirm(@PathVariable int id, Model model) {
         model.addAttribute("book", bookService.findById(id));
         return "/confirmPay";

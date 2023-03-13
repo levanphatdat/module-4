@@ -5,31 +5,40 @@ import com.example.model.Category;
 import com.example.service.IBlogService;
 import com.example.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/blog")
+@CrossOrigin("*")
 public class BlogController {
     @Autowired
     private IBlogService blogService;
     @Autowired
     private ICategoryService categoryService;
 
+    //            @GetMapping("")
+//    public ResponseEntity<List<Blog>> list() {
+//        List<Blog> blogList = blogService.findAll();
+//        if (blogList.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(blogList, HttpStatus.OK);
+//    }
     @GetMapping("")
-    public ResponseEntity<List<Blog>> list() {
-        List<Blog> blogList = blogService.findAll();
-        if (blogList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(blogList, HttpStatus.OK);
+    public Page<Blog> list(@RequestParam(value = "", required = false) String search,
+                           @PageableDefault(size = 5) Pageable pageable) {
+        Page<Blog> blogList = blogService.findBlogByTitleContaining(search, pageable);
+        List<Blog> blogs = blogList.toList();
+        return new PageImpl<>(blogs, pageable, blogList.getTotalElements());
     }
 
     @GetMapping("/{id}")
